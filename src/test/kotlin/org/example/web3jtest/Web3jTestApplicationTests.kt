@@ -29,19 +29,21 @@ import java.util.concurrent.TimeUnit
 class Web3jTestApplicationTests {
 
     // val web3j: Web3j = Web3j.build(HttpService("http://localhost:8545"))
-    val web3j: Web3j = Web3j.build(HttpService("HTTP://127.0.0.1:7545"))
+    val web3j: Web3j = Web3j.build(HttpService("HTTP://127.0.0.1:8545"))
 
     //  val privateKey = "0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bcdcc237f75ad3d7c8984f59"
-    val privateKey = "0x040cfb4250104b9d57fd2916aed39549fe9d0361b7db0cfc435cdff18287931f"
+    val privateKey = "cb3b0bf19893f798434c089cc11d5414f187df9739aa7692c5f9996f3533fd75"
     val credentials = Credentials.create(privateKey)
     private val rawTransactionManager = RawTransactionManager(web3j, credentials)
 
     @Test
     fun getBalance() {
-        println(web3j.ethGetBalance("0x784242863096dD58eBBecFc16692110CA6A3492a", DefaultBlockParameterName.LATEST).send().balance)
-        println(web3j.ethGetBalance("0x5eEC34d5Cc09e57941B68Bb03DF17256E1eA64E5", DefaultBlockParameterName.LATEST).send().balance)
+        println(web3j.ethGetBalance("0xD44A58c6c58608Cb7eC3be8bA4bebfE4F8786592", DefaultBlockParameterName.LATEST).send().balance)
+        println(web3j.ethGetBalance("0xaeada123ca246799de186362f94addc6bc01f31a", DefaultBlockParameterName.LATEST).send().balance)
         println(web3j.ethGetBalance("0x2272F3B46614eAB2Af01Ec6b01d72bB504aC47bf", DefaultBlockParameterName.LATEST).send().balance)
     }
+
+    // eth.sendTransaction({from: '0xD44A58c6c58608Cb7eC3be8bA4bebfE4F8786592', to: '0x2272F3B46614eAB2Af01Ec6b01d72bB504aC47bf', value: web3.toWei(1, "ether")})
 
     @Test
     fun deployCreatorContract() {
@@ -50,12 +52,13 @@ class Web3jTestApplicationTests {
         val gasLimit = BigInteger.valueOf(4_700_000L)
         val gasProvider: ContractGasProvider = StaticGasProvider(gasPrice, gasLimit)
 
+        val rawTransactionManager = RawTransactionManager(web3j, credentials, 1337)
+
         val nftV1CollectionCreator = MsNftV1CollectionCreator.deploy(
-            web3j, credentials, gasProvider
+            web3j, rawTransactionManager, gasProvider
         ).send()
 
         println("Contract Address: ${nftV1CollectionCreator.contractAddress}")
-        //"0x12396a9bbacd97156db740e85c208a3393018328"
     }
 
     @Test
