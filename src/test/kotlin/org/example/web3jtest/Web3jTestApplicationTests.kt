@@ -30,9 +30,10 @@ class Web3jTestApplicationTests {
 
     // val web3j: Web3j = Web3j.build(HttpService("http://localhost:8545"))
     val web3j: Web3j = Web3j.build(HttpService("HTTP://127.0.0.1:8545"))
-
+   
     //  val privateKey = "0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bcdcc237f75ad3d7c8984f59"
-    val privateKey = "cb3b0bf19893f798434c089cc11d5414f187df9739aa7692c5f9996f3533fd75"
+    //  val privateKey = "cb3b0bf19893f798434c089cc11d5414f187df9739aa7692c5f9996f3533fd75"
+    val privateKey = "a2f6792d9fe5b958ea7fbaa01508f814e1aed3791b775b9260dd63fbddfb2b32"
     val credentials = Credentials.create(privateKey)
     private val rawTransactionManager = RawTransactionManager(web3j, credentials)
 
